@@ -28,4 +28,8 @@ HERVIDA="Hervida"
 AL_HORNO="Al horno"
 PLANCHA="Plancha"
 
+# Tipos de Monto
+MONTO_ALTO="Alto"
+MONTO_BAJO="Bajo"
+
 

@@ -1,4 +1,4 @@
-from experta import MATCH, DefFacts, KnowledgeEngine, Fact, Field, Rule, OR, P
+from experta import AND, MATCH, DefFacts, KnowledgeEngine, Fact, Field, Rule, OR, P
 from schema import Or
 from constants import *
 
@@ -63,6 +63,18 @@ class Presupuesto(Fact):
     """
 
     monto = Field(Or(*TIPOS_DE_PRESUPUESTO))
+
+class CorteDeCarne(Fact):
+    """
+    Concepto Corte de Carne 
+    Representa el corte de carne que tiene disponible la carniceria
+    para realizar la recomendacion
+    """
+    nombre = Field(str)
+    precio = Field(int)
+    peso = Field(int)
+    presencia_de_hueso = Field(bool)
+
 
 
 # class TipoDeCoccion(Fact):
@@ -143,7 +155,7 @@ class MotorInferencia(KnowledgeEngine):
         )
     )
     def regla_6(self):
-        self.declare(Presupuesto(monto="Bajo"))
+        self.declare(Presupuesto(monto=MONTO_BAJO))
 
     @Rule(
         OR(
@@ -155,12 +167,55 @@ class MotorInferencia(KnowledgeEngine):
         )
     )
     def regla_7(self):
-        self.declare(Presupuesto(monto="Alto"))
+        self.declare(Presupuesto(monto=MONTO_ALTO))
+
+    ####################################################
+
+    @Rule(AND(Platillo(tipo_de_coccion=PARRILLA)),Presupuesto(monto=MONTO_ALTO))
+    def regla_8(self):
+        self.declare(CorteDeCarne(presencia_de_hueso=True))
+
+    @Rule(AND(Platillo(tipo_de_coccion=PARRILLA)),Presupuesto(monto=MONTO_BAJO))
+    def regla_9(self):
+        self.declare(CorteDeCarne(presencia_de_hueso=False))
+
+    @Rule(AND(Platillo(tipo_de_coccion=FRITA)),Presupuesto(monto=MONTO_ALTO))
+    def regla_10(self):
+        self.declare(CorteDeCarne(presencia_de_hueso=False))
+
+    @Rule(AND(Platillo(tipo_de_coccion=FRITA)),Presupuesto(monto=MONTO_BAJO))
+    def regla_11(self):
+        self.declare(CorteDeCarne(presencia_de_hueso=False))
+
+    @Rule(AND(Platillo(tipo_de_coccion=HERVIDA)),Presupuesto(monto=MONTO_ALTO))
+    def regla_12(self):
+        self.declare(CorteDeCarne(presencia_de_hueso=True))
+
+    @Rule(AND(Platillo(tipo_de_coccion=HERVIDA)),Presupuesto(monto=MONTO_BAJO))
+    def regla_13(self):
+        self.declare(CorteDeCarne(presencia_de_hueso=False))
+
+    @Rule(AND(Platillo(tipo_de_coccion=AL_HORNO)),Presupuesto(monto=MONTO_ALTO))
+    def regla_14(self):
+        self.declare(CorteDeCarne(presencia_de_hueso=False))
+
+    @Rule(AND(Platillo(tipo_de_coccion=AL_HORNO)),Presupuesto(monto=MONTO_BAJO))
+    def regla_15(self):
+        self.declare(CorteDeCarne(presencia_de_hueso=False))
+
+    @Rule(AND(Platillo(tipo_de_coccion=PLANCHA)),Presupuesto(monto=MONTO_ALTO))
+    def regla_16(self):
+        self.declare(CorteDeCarne(presencia_de_hueso=False))
+
+    @Rule(AND(Platillo(tipo_de_coccion=PLANCHA)),Presupuesto(monto=MONTO_BAJO))
+    def regla_17(self):
+        self.declare(CorteDeCarne(presencia_de_hueso=False))
+
 
     @Rule(Platillo(tipo_de_coccion=FRITA),Presupuesto(monto=MATCH.monto))
     def prueba(self,monto):
         print(f"cocina frita y tiene monto {monto}")
-        # self.declare(Platillo(tipo_de_coccion=PARRILLA))
+
 
 
 def main():
