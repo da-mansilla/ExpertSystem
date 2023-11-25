@@ -1,4 +1,3 @@
-from experta import KnowledgeEngine
 from MotorInferencia import MotorInferencia
 from constants import *
 
