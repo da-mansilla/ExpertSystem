@@ -341,11 +341,56 @@ class MotorInferencia(KnowledgeEngine):
         )
     )
     def regla_25(self):
-        self.declare(Recomendacion(cantidad=350))
+        self.declare(Recomendacion(cantidad=450))
+
+    ################################################
+
+    @Rule(Presupuesto(monto=MONTO_ALTO),Platillo(tipo_de_coccion=PARRILLA),CorteDeCarne(presencia_de_hueso=True))
+    def regla_26(self):
+        print("recomendacion 1")
+
+    @Rule(Presupuesto(monto=MONTO_ALTO),Platillo(tipo_de_coccion=FRITA),CorteDeCarne(presencia_de_hueso=False))
+    def regla_27(self):
+        print("recomendacion 2")
+
+    @Rule(Presupuesto(monto=MONTO_ALTO),Platillo(tipo_de_coccion=HERVIDA),CorteDeCarne(presencia_de_hueso=True))
+    def regla_28(self):
+        print("recomendacion 3")
+
+    @Rule(Presupuesto(monto=MONTO_ALTO),Platillo(tipo_de_coccion=AL_HORNO),CorteDeCarne(presencia_de_hueso=False))
+    def regla_29(self):
+        print("recomendacion 4")
+
+    @Rule(Presupuesto(monto=MONTO_ALTO),Platillo(tipo_de_coccion=PLANCHA),CorteDeCarne(presencia_de_hueso=False))
+    def regla_30(self):
+        print("recomendacion 5")
+
+    @Rule(Presupuesto(monto=MONTO_BAJO),Platillo(tipo_de_coccion=PARRILLA),CorteDeCarne(presencia_de_hueso=False))
+    def regla_31(self):
+        print("recomendacion 6")
+
+    @Rule(Presupuesto(monto=MONTO_BAJO),Platillo(tipo_de_coccion=FRITA),CorteDeCarne(presencia_de_hueso=False))
+    def regla_32(self):
+        print("recomendacion 7")
+
+    @Rule(Presupuesto(monto=MONTO_BAJO),Platillo(tipo_de_coccion=HERVIDA),CorteDeCarne(presencia_de_hueso=False))
+    def regla_33(self):
+        print("recomendacion 8")
+
+    @Rule(Presupuesto(monto=MONTO_BAJO),Platillo(tipo_de_coccion=AL_HORNO),CorteDeCarne(presencia_de_hueso=False))
+    def regla_34(self):
+        print("recomendacion 9")
+
+    @Rule(Presupuesto(monto=MONTO_BAJO),Platillo(tipo_de_coccion=PLANCHA),CorteDeCarne(presencia_de_hueso=False))
+    def regla_35(self):
+        print("recomendacion 10")
+
 
     @Rule(Platillo(tipo_de_coccion=FRITA), Presupuesto(monto=MATCH.monto))
     def prueba(self, monto):
         print(f"cocina frita y tiene monto {monto}")
+
+
 
 
 def main():
