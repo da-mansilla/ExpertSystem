@@ -15,7 +15,6 @@ from schema import Or
 from constants import *
 
 
-
 class Platillo(Fact):
     """
     Concepto Platillo
@@ -98,12 +97,13 @@ class MotorInferencia(KnowledgeEngine):
         self.cantidad_carne = 0
         self.cortes_carne = []
 
-    def get_results(self):
-        print("Resultados")
-        print(self.cantidad_carne)
-        print(self.cortes_carne)
+    def get_results(self) -> dict:
+        return {
+            "cantidad_carne": self.cantidad_carne,
+            "cortes_carne": self.cortes_carne,
+        }
 
-    def add_initial_values(
+    def add_initial_facts(
         self,
         platillo: str,
         cantidad_de_dinero: int,

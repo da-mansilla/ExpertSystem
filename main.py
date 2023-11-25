@@ -1,5 +1,12 @@
+from experta import KnowledgeEngine
 from MotorInferencia import MotorInferencia
 from constants import *
+
+def get_engine() -> MotorInferencia:
+    motor = MotorInferencia()
+    motor.reset()
+    return motor
+
 
 def validate_initial_values(
     platillo: str,
@@ -20,11 +27,7 @@ def validate_initial_values(
     if not valores_validos:
         raise Exception("Valores de tipos de comensales no validos")
 
-
-def main():
-    motor = MotorInferencia()
-    motor.reset()
-
+def get_initial_values() -> dict:
     platillo_a_preparar = ASADO
     cantidad_de_dinero = 1800
     comensalesMock = {
@@ -40,13 +43,27 @@ def main():
             comensalesMock,
         )
     except Exception as e:
-        print(e)
-        return 1
+        raise Exception(e)
 
-    motor.add_initial_values(platillo_a_preparar, cantidad_de_dinero, comensalesMock)
+    return {
+            "platillo_a_preparar":platillo_a_preparar,
+            "cantidad_de_dinero":cantidad_de_dinero,
+            "comensalesMock":comensalesMock
+    }
+
+def obtain_inference(motor: MotorInferencia,facts: dict) -> dict:
+    platillo_a_preparar,cantidad_de_dinero,comensalesMock = facts.values()
+    motor.add_initial_facts(platillo_a_preparar, cantidad_de_dinero, comensalesMock)
     motor.run()
-    # print(motor.facts)
-    motor.get_results()
+    results = motor.get_results()
+    return results
+
+
+def main():
+    motor = get_engine()
+    inputs_values = get_initial_values()
+    results = obtain_inference(motor,inputs_values)
+    print(results)
 
 
 if __name__ == "__main__":
