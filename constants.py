@@ -73,6 +73,43 @@ CHIQUIZUELA=("chiquizuela",1900)
 # Tipos de Comensales
 TIPOS_COMENSALES=["cantidad_hombres_mayores","cantidad_hombres_menores","cantidad_mujeres_mayores","cantidad_mujeres_menores"]
 
+# 
+PLATILLOS = [
+    "Asado",
+    "Hamburguesa",
+    "Choripan",
+    "Brochetas",
+    "Churrasco",
+    "Milanesa",
+    "Lampreado",
+    "Empanadas",
+    "Albóndigas",
+    "Estofado",
+    "Sopa ",
+    "Guiso",
+    "Locro",
+    "Carne a la olla",
+    "Pastel de papa",
+    "Arrollado de carne",
+    "Pan de carne",
+    "Lasaña",
+    "Canelones de carne",
+    "Bife",
+    "Carne a la plancha",
+]
+
+# Tipos de Coccion
+TIPOS_DE_COCCION = [
+    "Parrilla",
+    "Frita",
+    "Hervida",
+    "Al horno",
+    "Plancha",
+]
+
+# Presupuestos
+TIPOS_DE_PRESUPUESTO = ["Bajo", "Alto"]
+
 # Recomendaciones
 
 RECOMENDACION_1=[TIRA_DE_COSTILLA[0],ASADO_CARNICERO[0],CORTE_AMERICANO[0],MATAMBRE[0],COSTILLAR[0],COSTELETA[0],FALDA[0]]
