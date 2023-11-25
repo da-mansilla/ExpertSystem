@@ -53,7 +53,7 @@ class Cliente(Fact):
 
     platillo_a_preparar = Field(Or(*PLATILLOS))
     cantidad_de_dinero = Field(int)
-    cantidad_de_comensales = Field(Or(1,2,3,4,5))
+    cantidad_de_comensales = Field(Or(1, 2, 3, 4, 5))
 
 
 class Presupuesto(Fact):
@@ -64,17 +64,40 @@ class Presupuesto(Fact):
 
     monto = Field(Or(*TIPOS_DE_PRESUPUESTO))
 
+
 class CorteDeCarne(Fact):
     """
-    Concepto Corte de Carne 
+    Concepto Corte de Carne
     Representa el corte de carne que tiene disponible la carniceria
     para realizar la recomendacion
     """
+
     nombre = Field(str)
     precio = Field(int)
     peso = Field(int)
     presencia_de_hueso = Field(bool)
 
+
+class Comensal(Fact):
+    """
+    Concepto Comensal
+    Representa la cantidad de personas para la cual el cliente necesita
+    comprar carne
+    """
+
+    cantidad_hombres_mayores = Field(int)
+    cantidad_hombres_menores = Field(int)
+    cantidad_mujeres_mayores = Field(int)
+    cantidad_mujeres_menores = Field(int)
+
+class Recomendacion(Fact):
+    """
+    Concepto Recomendacion
+    Representa la recomendacion que la carniceria entre al cliente
+    """
+    tipo_de_carne=Field(str)
+    precio_total=Field(str)
+    cantidad=Field(int)
 
 
 # class TipoDeCoccion(Fact):
@@ -90,7 +113,12 @@ class MotorInferencia(KnowledgeEngine):
     @DefFacts()
     def _initial_action(self):
         yield Platillo(tipo=MILANESA)
-        yield Cliente(platillo_a_preparar=MILANESA, cantidad_de_dinero=5001, cantidad_de_comensales=2)
+        yield Cliente(
+            platillo_a_preparar=MILANESA,
+            cantidad_de_dinero=5001,
+            cantidad_de_comensales=2,
+        )
+        yield Comensal(cantidad_hombres_mayores=2, cantidad_mujeres_mayores=1)
 
     @Rule(
         OR(
@@ -147,11 +175,26 @@ class MotorInferencia(KnowledgeEngine):
 
     @Rule(
         OR(
-            Cliente(cantidad_de_dinero=P(lambda dinero: dinero <= 2000 ), cantidad_de_comensales=1),
-            Cliente(cantidad_de_dinero=P(lambda dinero: dinero <= 4000 ), cantidad_de_comensales=2),
-            Cliente(cantidad_de_dinero=P(lambda dinero: dinero <= 6000 ), cantidad_de_comensales=3),
-            Cliente(cantidad_de_dinero=P(lambda dinero: dinero <= 8000 ), cantidad_de_comensales=4),
-            Cliente(cantidad_de_dinero=P(lambda dinero: dinero <= 10000), cantidad_de_comensales=5),
+            Cliente(
+                cantidad_de_dinero=P(lambda dinero: dinero <= 2000),
+                cantidad_de_comensales=1,
+            ),
+            Cliente(
+                cantidad_de_dinero=P(lambda dinero: dinero <= 4000),
+                cantidad_de_comensales=2,
+            ),
+            Cliente(
+                cantidad_de_dinero=P(lambda dinero: dinero <= 6000),
+                cantidad_de_comensales=3,
+            ),
+            Cliente(
+                cantidad_de_dinero=P(lambda dinero: dinero <= 8000),
+                cantidad_de_comensales=4,
+            ),
+            Cliente(
+                cantidad_de_dinero=P(lambda dinero: dinero <= 10000),
+                cantidad_de_comensales=5,
+            ),
         )
     )
     def regla_6(self):
@@ -159,11 +202,26 @@ class MotorInferencia(KnowledgeEngine):
 
     @Rule(
         OR(
-            Cliente(cantidad_de_dinero=P(lambda dinero: dinero > 2000 ), cantidad_de_comensales=1),
-            Cliente(cantidad_de_dinero=P(lambda dinero: dinero > 4000 ), cantidad_de_comensales=2),
-            Cliente(cantidad_de_dinero=P(lambda dinero: dinero > 6000 ), cantidad_de_comensales=3),
-            Cliente(cantidad_de_dinero=P(lambda dinero: dinero > 8000 ), cantidad_de_comensales=4),
-            Cliente(cantidad_de_dinero=P(lambda dinero: dinero > 10000 ), cantidad_de_comensales=5),
+            Cliente(
+                cantidad_de_dinero=P(lambda dinero: dinero > 2000),
+                cantidad_de_comensales=1,
+            ),
+            Cliente(
+                cantidad_de_dinero=P(lambda dinero: dinero > 4000),
+                cantidad_de_comensales=2,
+            ),
+            Cliente(
+                cantidad_de_dinero=P(lambda dinero: dinero > 6000),
+                cantidad_de_comensales=3,
+            ),
+            Cliente(
+                cantidad_de_dinero=P(lambda dinero: dinero > 8000),
+                cantidad_de_comensales=4,
+            ),
+            Cliente(
+                cantidad_de_dinero=P(lambda dinero: dinero > 10000),
+                cantidad_de_comensales=5,
+            ),
         )
     )
     def regla_7(self):
@@ -171,51 +229,123 @@ class MotorInferencia(KnowledgeEngine):
 
     ####################################################
 
-    @Rule(AND(Platillo(tipo_de_coccion=PARRILLA)),Presupuesto(monto=MONTO_ALTO))
+    @Rule(AND(Platillo(tipo_de_coccion=PARRILLA)), Presupuesto(monto=MONTO_ALTO))
     def regla_8(self):
         self.declare(CorteDeCarne(presencia_de_hueso=True))
 
-    @Rule(AND(Platillo(tipo_de_coccion=PARRILLA)),Presupuesto(monto=MONTO_BAJO))
+    @Rule(AND(Platillo(tipo_de_coccion=PARRILLA)), Presupuesto(monto=MONTO_BAJO))
     def regla_9(self):
         self.declare(CorteDeCarne(presencia_de_hueso=False))
 
-    @Rule(AND(Platillo(tipo_de_coccion=FRITA)),Presupuesto(monto=MONTO_ALTO))
+    @Rule(AND(Platillo(tipo_de_coccion=FRITA)), Presupuesto(monto=MONTO_ALTO))
     def regla_10(self):
         self.declare(CorteDeCarne(presencia_de_hueso=False))
 
-    @Rule(AND(Platillo(tipo_de_coccion=FRITA)),Presupuesto(monto=MONTO_BAJO))
+    @Rule(AND(Platillo(tipo_de_coccion=FRITA)), Presupuesto(monto=MONTO_BAJO))
     def regla_11(self):
         self.declare(CorteDeCarne(presencia_de_hueso=False))
 
-    @Rule(AND(Platillo(tipo_de_coccion=HERVIDA)),Presupuesto(monto=MONTO_ALTO))
+    @Rule(AND(Platillo(tipo_de_coccion=HERVIDA)), Presupuesto(monto=MONTO_ALTO))
     def regla_12(self):
         self.declare(CorteDeCarne(presencia_de_hueso=True))
 
-    @Rule(AND(Platillo(tipo_de_coccion=HERVIDA)),Presupuesto(monto=MONTO_BAJO))
+    @Rule(AND(Platillo(tipo_de_coccion=HERVIDA)), Presupuesto(monto=MONTO_BAJO))
     def regla_13(self):
         self.declare(CorteDeCarne(presencia_de_hueso=False))
 
-    @Rule(AND(Platillo(tipo_de_coccion=AL_HORNO)),Presupuesto(monto=MONTO_ALTO))
+    @Rule(AND(Platillo(tipo_de_coccion=AL_HORNO)), Presupuesto(monto=MONTO_ALTO))
     def regla_14(self):
         self.declare(CorteDeCarne(presencia_de_hueso=False))
 
-    @Rule(AND(Platillo(tipo_de_coccion=AL_HORNO)),Presupuesto(monto=MONTO_BAJO))
+    @Rule(AND(Platillo(tipo_de_coccion=AL_HORNO)), Presupuesto(monto=MONTO_BAJO))
     def regla_15(self):
         self.declare(CorteDeCarne(presencia_de_hueso=False))
 
-    @Rule(AND(Platillo(tipo_de_coccion=PLANCHA)),Presupuesto(monto=MONTO_ALTO))
+    @Rule(AND(Platillo(tipo_de_coccion=PLANCHA)), Presupuesto(monto=MONTO_ALTO))
     def regla_16(self):
         self.declare(CorteDeCarne(presencia_de_hueso=False))
 
-    @Rule(AND(Platillo(tipo_de_coccion=PLANCHA)),Presupuesto(monto=MONTO_BAJO))
+    @Rule(AND(Platillo(tipo_de_coccion=PLANCHA)), Presupuesto(monto=MONTO_BAJO))
     def regla_17(self):
         self.declare(CorteDeCarne(presencia_de_hueso=False))
 
+    ####################################################
 
-    @Rule(Platillo(tipo_de_coccion=FRITA),Presupuesto(monto=MATCH.monto))
-    def prueba(self,monto):
+    @Rule(
+        AND(
+            Comensal(cantidad_hombres_menores=P(lambda cantidad: cantidad > 0)),
+            CorteDeCarne(presencia_de_hueso=True),
+        )
+    )
+    def regla_18(self):
+        self.declare(Recomendacion(cantidad=350))
+
+    @Rule(
+        AND(
+            Comensal(cantidad_hombres_menores=P(lambda cantidad: cantidad > 0)),
+            CorteDeCarne(presencia_de_hueso=False),
+        )
+    )
+    def regla_19(self):
+        self.declare(Recomendacion(cantidad=250))
+
+    @Rule(
+        AND(
+            Comensal(cantidad_hombres_mayores=P(lambda cantidad: cantidad > 0)),
+            CorteDeCarne(presencia_de_hueso=True),
+        )
+    )
+    def regla_20(self):
+        self.declare(Recomendacion(cantidad=500))
+
+    @Rule(
+        AND(
+            Comensal(cantidad_hombres_mayores=P(lambda cantidad: cantidad > 0)),
+            CorteDeCarne(presencia_de_hueso=False),
+        )
+    )
+    def regla_21(self):
+        self.declare(Recomendacion(cantidad=400))
+
+    @Rule(
+        AND(
+            Comensal(cantidad_mujeres_menores=P(lambda cantidad: cantidad > 0)),
+            CorteDeCarne(presencia_de_hueso=True),
+        )
+    )
+    def regla_22(self):
+        self.declare(Recomendacion(cantidad=350))
+
+    @Rule(
+        AND(
+            Comensal(cantidad_mujeres_menores=P(lambda cantidad: cantidad > 0)),
+            CorteDeCarne(presencia_de_hueso=False),
+        )
+    )
+    def regla_23(self):
+        self.declare(Recomendacion(cantidad=250))
+
+    @Rule(
+        AND(
+            Comensal(cantidad_mujeres_mayores=P(lambda cantidad: cantidad > 0)),
+            CorteDeCarne(presencia_de_hueso=True),
+        )
+    )
+    def regla_24(self):
+        self.declare(Recomendacion(cantidad=450))
+
+    @Rule(
+        AND(
+            Comensal(cantidad_mujeres_mayores=P(lambda cantidad: cantidad > 0)),
+            CorteDeCarne(presencia_de_hueso=False),
+        )
+    )
+    def regla_25(self):
+        self.declare(Recomendacion(cantidad=350))
+
+    @Rule(Platillo(tipo_de_coccion=FRITA), Presupuesto(monto=MATCH.monto))
+    def prueba(self, monto):
         print(f"cocina frita y tiene monto {monto}")
-
 
 
 def main():
