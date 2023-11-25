@@ -266,6 +266,66 @@ class MotorInferencia(KnowledgeEngine):
                 cantidad_de_dinero=P(lambda dinero: dinero > 10000),
                 cantidad_de_comensales=5,
             ),
+            Cliente(
+                cantidad_de_dinero=P(lambda dinero: dinero > 12000),
+                cantidad_de_comensales=6,
+            ),
+            Cliente(
+                cantidad_de_dinero=P(lambda dinero: dinero > 14000),
+                cantidad_de_comensales=7,
+            ),
+            Cliente(
+                cantidad_de_dinero=P(lambda dinero: dinero > 16000),
+                cantidad_de_comensales=8,
+            ),
+            Cliente(
+                cantidad_de_dinero=P(lambda dinero: dinero > 18000),
+                cantidad_de_comensales=9,
+            ),
+            Cliente(
+                cantidad_de_dinero=P(lambda dinero: dinero > 20000),
+                cantidad_de_comensales=10,
+            ),
+            Cliente(
+                cantidad_de_dinero=P(lambda dinero: dinero > 22000),
+                cantidad_de_comensales=11,
+            ),
+            Cliente(
+                cantidad_de_dinero=P(lambda dinero: dinero > 24000),
+                cantidad_de_comensales=12,
+            ),
+            Cliente(
+                cantidad_de_dinero=P(lambda dinero: dinero > 26000),
+                cantidad_de_comensales=13,
+            ),
+            Cliente(
+                cantidad_de_dinero=P(lambda dinero: dinero > 28000),
+                cantidad_de_comensales=14,
+            ),
+            Cliente(
+                cantidad_de_dinero=P(lambda dinero: dinero > 30000),
+                cantidad_de_comensales=15,
+            ),
+            Cliente(
+                cantidad_de_dinero=P(lambda dinero: dinero > 32000),
+                cantidad_de_comensales=16,
+            ),
+            Cliente(
+                cantidad_de_dinero=P(lambda dinero: dinero > 34000),
+                cantidad_de_comensales=17,
+            ),
+            Cliente(
+                cantidad_de_dinero=P(lambda dinero: dinero > 36000),
+                cantidad_de_comensales=18,
+            ),
+            Cliente(
+                cantidad_de_dinero=P(lambda dinero: dinero > 38000),
+                cantidad_de_comensales=19,
+            ),
+            Cliente(
+                cantidad_de_dinero=P(lambda dinero: dinero > 40000),
+                cantidad_de_comensales=20,
+            ),
         )
     )
     def regla_7(self):
