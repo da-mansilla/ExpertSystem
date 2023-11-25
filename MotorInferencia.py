@@ -478,8 +478,8 @@ class MotorInferencia(KnowledgeEngine):
         )
     )
     def regla_25(self, cantidad):
-        self.cantidad_carne += 450 * cantidad
-        self.declare(Recomendacion(cantidad=450))
+        self.cantidad_carne += 350 * cantidad
+        self.declare(Recomendacion(cantidad=350))
 
     ################################################
 
