@@ -11,7 +11,7 @@ def validate_initial_values(
     platillo: str,
     cantidad_de_dinero: int,
     comensales: dict,
-):
+) -> None:
     if platillo not in PLATILLOS:
         raise Exception("Platillo no encontrado")
     if cantidad_de_dinero < 0:
@@ -27,12 +27,12 @@ def validate_initial_values(
         raise Exception("Valores de tipos de comensales no validos")
 
 def get_initial_values() -> dict:
-    platillo_a_preparar = ASADO
-    cantidad_de_dinero = 1800
+    platillo_a_preparar = MILANESA 
+    cantidad_de_dinero = 15000 
     comensalesMock = {
-        "cantidad_hombres_mayores": 3,
+        "cantidad_hombres_mayores": 1,
         "cantidad_hombres_menores": 0,
-        "cantidad_mujeres_mayores": 1,
+        "cantidad_mujeres_mayores": 0,
         "cantidad_mujeres_menores": 0,
     }
     try:
@@ -55,14 +55,24 @@ def obtain_inference(motor: MotorInferencia,facts: dict) -> dict:
     motor.add_initial_facts(platillo_a_preparar, cantidad_de_dinero, comensalesMock)
     motor.run()
     results = motor.get_results()
+    print("---")
+    print(motor.facts)
+    print("---")
     return results
+
+def show_results(results:dict) -> None:
+    print("Recomendación")
+    print(f"Se recomienda llevar {results['cantidad_carne']}g de los siguientes tipos de carne:\n")
+    for corte in results["cortes_carne"]:
+        precio_carne = int(corte[1] * (results['cantidad_carne']/1000))
+        print(f"\t- {corte[0].capitalize()} -> ${precio_carne}")
 
 
 def main():
     motor = get_engine()
     inputs_values = get_initial_values()
     results = obtain_inference(motor,inputs_values)
-    print(results)
+    show_results(results)
 
 
 if __name__ == "__main__":
