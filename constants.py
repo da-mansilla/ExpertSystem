@@ -33,7 +33,7 @@ MONTO_ALTO="Alto"
 MONTO_BAJO="Bajo"
 
 # Tipos de Corte de Carne
-NALGA=("nalga",3600)
+NALGA=("nalga",4100)
 PECETO=("peceto",4100)
 CUADRADA=("cuadrada",3900)
 PICANA=("picana",4000)
