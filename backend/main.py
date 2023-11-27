@@ -27,12 +27,12 @@ def validate_initial_values(
         raise Exception("Valores de tipos de comensales no validos")
 
 def get_initial_values() -> dict:
-    platillo_a_preparar = MILANESA 
-    cantidad_de_dinero = 15000 
+    platillo_a_preparar = ASADO 
+    cantidad_de_dinero = 3000 
     comensalesMock = {
         "cantidad_hombres_mayores": 1,
         "cantidad_hombres_menores": 0,
-        "cantidad_mujeres_mayores": 0,
+        "cantidad_mujeres_mayores": 1,
         "cantidad_mujeres_menores": 0,
     }
     try:
@@ -55,9 +55,9 @@ def obtain_inference(motor: MotorInferencia,facts: dict) -> dict:
     motor.add_initial_facts(platillo_a_preparar, cantidad_de_dinero, comensalesMock)
     motor.run()
     results = motor.get_results()
-    print("---")
-    print(motor.facts)
-    print("---")
+    # print("---")
+    # print(motor.facts)
+    # print("---")
     return results
 
 def show_results(results:dict) -> None:
