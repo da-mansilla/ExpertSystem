@@ -2,23 +2,38 @@ import {
   Box,
   Grid,
   IconButton,
-  Slider,
   Typography,
-  styled,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { useState } from "react";
 import StartIcon from "@mui/icons-material/Start";
+import { Comensales } from "../App";
 
 interface IMenuComensales {
   cambiarMenu: (opcion: number) => void;
+  comensales: Comensales
+  changeComensales: (comensales:Comensales) => void
+  getResults: () => void
 }
-const MenuComensales: React.FC<IMenuComensales> = ({ cambiarMenu }) => {
+const MenuComensales: React.FC<IMenuComensales> = ({ cambiarMenu,comensales,changeComensales,getResults }) => {
   const [hombresMayores, setHombresMayores] = useState(0);
   const [hombresMenores, setHombresMenores] = useState(0);
   const [mujeresMayores, setMujeresMayores] = useState(0);
   const [mujeresMenores, setMujeresMenores] = useState(0);
+  const handleOnClickButton = () => {
+      const newComensales = {
+          hombresMayores:hombresMayores,
+          hombresMenores:hombresMenores,
+          mujeresMayores:mujeresMayores,
+          mujeresMenores:mujeresMenores
+      }
+      changeComensales(newComensales)
+      // getResults()
+
+      // cambiarMenu(5)
+
+  }
   return (
     <Box>
       <Box
@@ -85,10 +100,10 @@ const MenuComensales: React.FC<IMenuComensales> = ({ cambiarMenu }) => {
       </Grid>
       <Box sx ={{width:"100%",display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
         <Typography component="h4" variant="h3" sx={{ mt: 10 }}>
-            Siguiente 
+            Terminar 
         </Typography>
         <IconButton
-          onClick={() => cambiarMenu(5)}
+          onClick={() => handleOnClickButton()}
           size="large"
           color="success"
           sx={{ width: 150, height: 150 }}

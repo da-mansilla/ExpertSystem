@@ -3,8 +3,10 @@ import StartIcon from "@mui/icons-material/Start";
 
 interface IMenuDinero {
   cambiarMenu: (opcion: number) => void;
+  dinero: number
+  changeDinero: (dinero:number) => void
 }
-const MenuDinero: React.FC<IMenuDinero> = ({cambiarMenu}) => {
+const MenuDinero: React.FC<IMenuDinero> = ({cambiarMenu,dinero,changeDinero}) => {
   return (
     <Box>
       <Box
@@ -21,6 +23,8 @@ const MenuDinero: React.FC<IMenuDinero> = ({cambiarMenu}) => {
       </Box>
       <Box sx={{my:28}}>
         <PrettoSlider
+          value={dinero}
+          onChange={(e:any) => changeDinero(e.target.value)}
           valueLabelDisplay="on"
           valueLabelFormat={(value) => "$ "+value}
           aria-label="pretto slider"
