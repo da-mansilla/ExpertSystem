@@ -2,3 +2,6 @@ experta==1.9.4
 frozendict==1.2
 schema==0.6.7
 tk==0.1.0
+fastapi
+uvicorn
+
