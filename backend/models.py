@@ -2,10 +2,10 @@ from pydantic import BaseModel, validator
 from constants import PLATILLOS
 
 class Comensales(BaseModel):
-    cantidad_hombres_mayores: int = 0
-    cantidad_hombres_menores: int = 0
-    cantidad_mujeres_mayores: int = 0
-    cantidad_mujeres_menores: int = 0
+    cantidad_hombres_mayores: int 
+    cantidad_hombres_menores: int
+    cantidad_mujeres_mayores: int
+    cantidad_mujeres_menores: int 
 
     @validator("cantidad_hombres_mayores","cantidad_hombres_menores","cantidad_mujeres_mayores","cantidad_mujeres_menores")
     def mayor_a_cero(cls,value):
