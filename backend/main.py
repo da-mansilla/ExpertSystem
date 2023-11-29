@@ -1,11 +1,15 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from controller import get_engine, obtain_inference
 from models import UserInṕut
+from fastapi.responses import HTMLResponse,FileResponse
+from fastapi.staticfiles import StaticFiles
+from pathlib import Path
+from fastapi.templating import Jinja2Templates
 
 app = FastAPI()
 
-origins = ["*", "http://localhost:5173"]
+origins = ["*", "http://localhost:5173","http://0.0.0.0"]
 
 app.add_middleware(
     CORSMiddleware,
@@ -15,14 +19,19 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+templates = Jinja2Templates(directory="build")
 
-@app.get("/")
+# Monta la carpeta 'build' como una carpeta estática
+app.mount("/assets", StaticFiles(directory=Path("build/"), html=True), name="assets")
+
+@app.get("/",response_class=HTMLResponse)
 async def root():
-    return {"message": "Sistema de Recomendacion de Carne"}
-
+    return FileResponse("build/index.html", media_type="text/html")
 
 @app.post("/results")
 async def get_results(input: UserInṕut):
+    print("input")
+    print(input)
     motor = get_engine()
     results = obtain_inference(motor, input)
     return results

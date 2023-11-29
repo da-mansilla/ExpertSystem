@@ -4,4 +4,5 @@ schema==0.6.7
 tk==0.1.0
 fastapi
 uvicorn
+jinja2
 
