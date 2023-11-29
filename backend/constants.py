@@ -9,7 +9,7 @@ LAMPREADO="Lampreado"
 EMPANADAS="Empanadas"
 ALBONDIGAS="Albóndigas"
 ESTOFADO="Estofado"
-SOPA="Sopa "
+SOPA="Sopa"
 GUISO="Guiso"
 LOCRO="Locro"
 CARNE_A_LA_OLLA="Carne a la olla"
@@ -33,42 +33,42 @@ MONTO_ALTO="Alto"
 MONTO_BAJO="Bajo"
 
 # Tipos de Corte de Carne
-NALGA=("nalga",4100)
-PECETO=("peceto",4100)
-CUADRADA=("cuadrada",3900)
-PICANA=("picana",4000)
-CUADRIL=("cuadril",3900)
-COLITA_DE_CUADRIL=("colita de cuadril",3900)
-BOLA_DE_LOMO=("bola de lomo",3900)
-OSOBUCO=("osobuco",1900)
-TORTUGITA=("tortugita",3000)
-COSTILLAR=("costillar",3800)
-MATAMBRE=("matambre",3800)
-ENTRAÑA=("entraña",3800)
-COSTELETA=("costeleta",3800)
-LOMO_ROLLIZO=("lomo rollizo",4100)
-FALDA=("falda",3800)
-VACIO=("vacio",3600)
-LOMO=("lomo",4100)
-FILET=("filet",4100)
-SOBACO=("sobaco",3000)
-PALETA=("paleta",3900)
-CORTE_AMERICANO=("corte americano",3600)
-TIRA_DE_COSTILLA=("tira de costilla",3600)
-ASADO_CARNICERO=("asado carnicero",3600)
-TAPA_DE_ASADO=("tapa de asado",3600)
-MARUCHA_DE_PALETA=("marucha de paleta",3600)
-ROAST_BEEF=("roast beef",3600)
-AGUJA_PARRILLERA=("aguja parrillera",3600)
-COGOTE=("cogote",1900)
-ALITA_DE_PECHO=("alita de pecho",3000)
-TAPA_DE_PECHO=("tapa de pecho",3800)
-TAPA_DE_NALGA=("tapa de nalga",3600)
-CHORIZO=("chorrizo",2400)
-BUTIFARRA=("butifarra",2400)
-MORCILLA=("morcilla",2400)
-CARNE_MOLIDA=("carne molida",3000)
-CHIQUIZUELA=("chiquizuela",1900)
+NALGA=("Nalga",4100)
+PECETO=("Peceto",4100)
+CUADRADA=("Cuadrada",3900)
+PICANA=("Picana",4000)
+CUADRIL=("Cuadril",3900)
+COLITA_DE_CUADRIL=("Colita de cuadril",3900)
+BOLA_DE_LOMO=("Bola de lomo",3900)
+OSOBUCO=("Osobuco",1900)
+TORTUGITA=("Tortugita",3000)
+COSTILLAR=("Costillar",3800)
+MATAMBRE=("Matambre",3800)
+ENTRAÑA=("Entraña",3800)
+COSTELETA=("Costeleta",3800)
+LOMO_ROLLIZO=("Lomo rollizo",4100)
+FALDA=("Falda",3800)
+VACIO=("Vacio",3600)
+LOMO=("Lomo",4100)
+FILET=("Filet",4100)
+SOBACO=("Sobaco",3000)
+PALETA=("Paleta",3900)
+CORTE_AMERICANO=("Corte americano",3600)
+TIRA_DE_COSTILLA=("Tira de costilla",3600)
+ASADO_CARNICERO=("Asado carnicero",3600)
+TAPA_DE_ASADO=("Tapa de asado",3600)
+MARUCHA_DE_PALETA=("Marucha de paleta",3600)
+ROAST_BEEF=("Roast beef",3600)
+AGUJA_PARRILLERA=("Aguja parrillera",3600)
+COGOTE=("Cogote",1900)
+ALITA_DE_PECHO=("Alita de pecho",3000)
+TAPA_DE_PECHO=("Tapa de pecho",3800)
+TAPA_DE_NALGA=("Tapa de nalga",3600)
+CHORIZO=("Chorizo",2400)
+BUTIFARRA=("Butifarra",2400)
+MORCILLA=("Morcilla",2400)
+CARNE_MOLIDA=("Carne molida",3000)
+CHIQUIZUELA=("Chiquizuela",1900)
 
 # Tipos de Comensales
 TIPOS_COMENSALES=["cantidad_hombres_mayores","cantidad_hombres_menores","cantidad_mujeres_mayores","cantidad_mujeres_menores"]
@@ -85,7 +85,7 @@ PLATILLOS = [
     "Empanadas",
     "Albóndigas",
     "Estofado",
-    "Sopa ",
+    "Sopa",
     "Guiso",
     "Locro",
     "Carne a la olla",
