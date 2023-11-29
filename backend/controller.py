@@ -59,9 +59,13 @@ def obtain_inference(motor: MotorInferencia,facts: UserInṕut) -> dict:
     motor.add_initial_facts(platillo_a_preparar, cantidad_de_dinero, comensales)
     motor.run()
     inference = motor.get_results()
+    justificacion = f"Estos cortes están re buenos porque se adaptan a un presupuesto {inference['presupuesto']}. Van de 10 para comidas {inference['tipo_coccion']}s. \n"
+    if inference["presencia_hueso"]:
+        justificacion += "Ademas, como contás con un buen presupuesto, estos cortes tienen huesito para agregarle mas sabor. !Va a quedar un espectaculo!\n"
     results = {
         "cantidad_carne": inference["cantidad_carne"],
         "cortes": [],
+        "justificacion":justificacion
     }
     print(inference)
     for corte in inference["cortes_carne"]:
