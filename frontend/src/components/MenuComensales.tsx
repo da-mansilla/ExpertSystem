@@ -1,39 +1,31 @@
-import {
-  Box,
-  Grid,
-  IconButton,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Grid, IconButton, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { useState } from "react";
-import StartIcon from "@mui/icons-material/Start";
 import { Comensales } from "../App";
 
 interface IMenuComensales {
-  cambiarMenu: (opcion: number) => void;
-  comensales: Comensales
-  changeComensales: (comensales:Comensales) => void
-  getResults: () => void
+  changeComensales: (comensales: Comensales) => void;
 }
-const MenuComensales: React.FC<IMenuComensales> = ({ cambiarMenu,comensales,changeComensales,getResults }) => {
+const MenuComensales: React.FC<IMenuComensales> = ({
+  changeComensales,
+}) => {
   const [hombresMayores, setHombresMayores] = useState(0);
   const [hombresMenores, setHombresMenores] = useState(0);
   const [mujeresMayores, setMujeresMayores] = useState(0);
   const [mujeresMenores, setMujeresMenores] = useState(0);
   const handleOnClickButton = () => {
-      const newComensales = {
-          hombresMayores:hombresMayores,
-          hombresMenores:hombresMenores,
-          mujeresMayores:mujeresMayores,
-          mujeresMenores:mujeresMenores
-      }
-      changeComensales(newComensales)
-      // getResults()
+    const newComensales = {
+      hombresMayores: hombresMayores,
+      hombresMenores: hombresMenores,
+      mujeresMayores: mujeresMayores,
+      mujeresMenores: mujeresMenores,
+    };
+    changeComensales(newComensales);
+    // getResults()
 
-      // cambiarMenu(5)
-
-  }
+    // cambiarMenu(5)
+  };
   return (
     <Box>
       <Box
@@ -44,12 +36,26 @@ const MenuComensales: React.FC<IMenuComensales> = ({ cambiarMenu,comensales,chan
           justifyContent: "center",
         }}
       >
-        <Typography variant="h4" component="h1">
-          ¿Cuantos acompañantes vas a tener?
-        </Typography>
+        <Box
+          sx={{
+            py: 2,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Typography
+            component="h2"
+            variant="h4"
+            sx={{ mt: 0, color: "gray", fontWeight: "bold" }}
+          >
+            ¿Cuantos van a comer?
+          </Typography>
+        </Box>
       </Box>
-      <Grid container rowSpacing={9} columnSpacing={1} sx={{ mt: 5 }}>
-        <Grid item xs={6}>
+      <Grid container rowSpacing={0} columnSpacing={1} sx={{ mt: 0, pt: 0 }}>
+        <Grid item xs={6} sx={{ pt: 0 }}>
           <SumadorComensales
             label="Hombres Mayores"
             valor={hombresMayores}
@@ -61,7 +67,7 @@ const MenuComensales: React.FC<IMenuComensales> = ({ cambiarMenu,comensales,chan
             }
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={6} sx={{ p: 0 }}>
           <SumadorComensales
             label="Hombres Menores"
             valor={hombresMenores}
@@ -73,9 +79,9 @@ const MenuComensales: React.FC<IMenuComensales> = ({ cambiarMenu,comensales,chan
             }
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={6} sx={{ p: 0 }}>
           <SumadorComensales
-            label="mujeres Mayores"
+            label="Mujeres Mayores"
             valor={mujeresMayores}
             sumar={() => setMujeresMayores(mujeresMayores + 1)}
             restar={() =>
@@ -85,7 +91,7 @@ const MenuComensales: React.FC<IMenuComensales> = ({ cambiarMenu,comensales,chan
             }
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={6} sx={{ p: 0 }}>
           <SumadorComensales
             label="Mujeres Menores"
             valor={mujeresMenores}
@@ -98,23 +104,37 @@ const MenuComensales: React.FC<IMenuComensales> = ({ cambiarMenu,comensales,chan
           />
         </Grid>
       </Grid>
-      <Box sx ={{width:"100%",display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
-        <Typography component="h4" variant="h3" sx={{ mt: 10 }}>
-            Terminar 
-        </Typography>
-        <IconButton
-          onClick={() => handleOnClickButton()}
-          size="large"
-          color="success"
-          sx={{ width: 150, height: 150 }}
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          mt: 3,
+        }}
+      >
+        <Button
+        onClick={() => handleOnClickButton()}
+          sx={{
+            width: "50%",
+            backgroundColor: "#FF3C53",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: 20,
+            ":hover":{backgroundColor:"#FF3F43"}
+          }}
         >
-          <StartIcon
-            sx={{ width: 150, height: 150, p: 1, borderRadius: 20 }}
-          ></StartIcon>
-        </IconButton>
-
+          <Typography
+            component="h4"
+            variant="h4"
+            sx={{ py: 2, color: "white", fontWeight: "bold" }}
+          >
+            Terminar
+          </Typography>
+        </Button>
       </Box>
-
     </Box>
   );
 };
@@ -137,15 +157,16 @@ const SumadorComensales: React.FC<ISumadorComensales> = ({
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        p: 0,
       }}
     >
-      <Typography variant="h4" component="h5">
+      <Typography variant="h5" component="p">
         {label}
       </Typography>
-      <Typography variant="h1" component="h5">
+      <Typography variant="h1" component="p">
         {valor}
       </Typography>
-      <Box>
+      <Box sx={{ p: 0 }}>
         <IconButton onClick={restar}>
           <RemoveIcon color="error" sx={{ width: 60, height: 60 }} />
         </IconButton>

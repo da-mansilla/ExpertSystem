@@ -1,6 +1,7 @@
 export interface Results{
     cantidad_carne : number,
     cortes: [CorteCarne]
+    justificacion: string
 }
 
 export interface CorteCarne{

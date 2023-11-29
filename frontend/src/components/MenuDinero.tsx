@@ -17,13 +17,28 @@ const MenuDinero: React.FC<IMenuDinero> = ({cambiarMenu,dinero,changeDinero}) =>
           justifyContent: "center",
         }}
       >
-        <Typography variant="h4" component="h1">
-          ¿De cuanto es tu Presupuesto?
+      <Box
+        sx={{
+          py: 2,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Typography
+          component="h2"
+          variant="h4"
+          sx={{ mt: 0, color: "gray", fontWeight: "bold" }}
+        >
+         ¿Cúal es tu Presupesto? 
         </Typography>
       </Box>
-      <Box sx={{my:28}}>
+      </Box>
+      <Box sx={{mt:15,mx:10}}>
         <PrettoSlider
           value={dinero}
+          step={100}
           onChange={(e:any) => changeDinero(e.target.value)}
           valueLabelDisplay="on"
           valueLabelFormat={(value) => "$ "+value}
@@ -33,20 +48,47 @@ const MenuDinero: React.FC<IMenuDinero> = ({cambiarMenu,dinero,changeDinero}) =>
           max={20000}
         />
       </Box>
-      <Box sx ={{width:"100%",display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
-        <Typography component="h4" variant="h3" sx={{ mt: 10 }}>
-            Siguiente 
-        </Typography>
-        <IconButton
-          onClick={() => cambiarMenu(4)}
-          size="large"
-          color="success"
-          sx={{ width: 150, height: 150 }}
+      <Box
+        sx={{
+          mt: 3,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "start",
+          alignItems: "center",
+          height: "65%",
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "start",
+            alignItems: "center",
+            backgroundColor: "white",
+            border: 1,
+            borderColor: "#FF3C53",
+            width: "20%",
+            p: 10,
+            borderRadius: 100,
+          }}
         >
-          <StartIcon
-            sx={{ width: 150, height: 150, p: 1, borderRadius: 20 }}
-          ></StartIcon>
-        </IconButton>
+          <Typography
+            component="h3"
+            variant="h3"
+            sx={{ color: "#FF3C53", fontWeight: "bold" }}
+          >
+            Siguiente 
+          </Typography>
+          <IconButton
+            onClick={() => cambiarMenu(4)}
+            size="large"
+            sx={{ width: 150, height: 150, color: "#FF3C53" }}
+          >
+            <StartIcon
+              sx={{ width: 150, height: 150, p: 0, borderRadius: 20 }}
+            ></StartIcon>
+          </IconButton>
+        </Box>
 
       </Box>
     </Box>
