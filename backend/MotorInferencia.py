@@ -33,7 +33,7 @@ class Cliente(Fact):
 
     platillo_a_preparar = Field(Or(*PLATILLOS))
     cantidad_de_dinero = Field(int)
-    cantidad_de_comensales = Field(Or(1, 2, 3, 4, 5, 6, 7, 8, 9, 10))
+    cantidad_de_comensales = Field(Or(0,1, 2, 3, 4, 5, 6, 7, 8, 9, 10))
 
 
 class Presupuesto(Fact):
@@ -96,11 +96,18 @@ class MotorInferencia(KnowledgeEngine):
         super().__init__()
         self.cantidad_carne = 0
         self.cortes_carne = []
+        self.presupuesto = ""
+        self.tipo_coccion = ""
+        self.presencia_hueso = False
+
 
     def get_results(self) -> dict:
         return {
             "cantidad_carne": self.cantidad_carne,
             "cortes_carne": self.cortes_carne,
+            "presupuesto":self.presupuesto,
+            "tipo_coccion":self.tipo_coccion,
+            "presencia_hueso":self.presencia_hueso
         }
 
     def add_initial_facts(
@@ -127,18 +134,6 @@ class MotorInferencia(KnowledgeEngine):
             )
         )
 
-    # @DefFacts()
-    # def _initial_action(self):
-    #     # yield Platillo(tipo=ASADO)
-    #     yield Cliente(
-    #         platillo_a_preparar=ASADO,
-    #         cantidad_de_dinero=1800,
-    #         cantidad_de_comensales=1,
-    #     )
-    #     yield Comensal(cantidad_hombres_mayores=1)
-    #     # yield Comensal(cantidad_mujeres_mayores=2,cantidad_mujeres_menores=2)
-    #     # yield CorteDeCarne(presencia_de_hueso=True)
-
     @Rule(
         OR(
             Cliente(platillo_a_preparar=ASADO),
@@ -150,6 +145,7 @@ class MotorInferencia(KnowledgeEngine):
     )
     def regla_1(self):
         self.declare(Platillo(tipo_de_coccion=PARRILLA))
+        self.tipo_coccion = PARRILLA
 
     @Rule(
         OR(
@@ -161,6 +157,7 @@ class MotorInferencia(KnowledgeEngine):
     )
     def regla_2(self):
         self.declare(Platillo(tipo_de_coccion=FRITA))
+        self.tipo_coccion = FRITA
 
     @Rule(
         OR(
@@ -173,6 +170,7 @@ class MotorInferencia(KnowledgeEngine):
     )
     def regla_3(self):
         self.declare(Platillo(tipo_de_coccion=HERVIDA))
+        self.tipo_coccion = HERVIDA
 
     @Rule(
         OR(
@@ -185,6 +183,7 @@ class MotorInferencia(KnowledgeEngine):
     )
     def regla_4(self):
         self.declare(Platillo(tipo_de_coccion=AL_HORNO))
+        self.tipo_coccion = AL_HORNO
 
     @Rule(
         OR(
@@ -194,6 +193,7 @@ class MotorInferencia(KnowledgeEngine):
     )
     def regla_5(self):
         self.declare(Platillo(tipo_de_coccion=PLANCHA))
+        self.tipo_coccion = PLANCHA
 
     ####################################################
 
@@ -283,6 +283,7 @@ class MotorInferencia(KnowledgeEngine):
     )
     def regla_6(self):
         self.declare(Presupuesto(monto=MONTO_BAJO))
+        self.presupuesto="Bajo"
 
     @Rule(
         OR(
@@ -370,48 +371,59 @@ class MotorInferencia(KnowledgeEngine):
     )
     def regla_7(self):
         self.declare(Presupuesto(monto=MONTO_ALTO))
+        self.presupuesto="Alto"
 
     ####################################################
 
     @Rule(AND(Platillo(tipo_de_coccion=PARRILLA)), Presupuesto(monto=MONTO_ALTO))
     def regla_8(self):
         self.declare(CorteDeCarne(presencia_de_hueso=True))
+        self.presencia_hueso=True
 
     @Rule(AND(Platillo(tipo_de_coccion=PARRILLA)), Presupuesto(monto=MONTO_BAJO))
     def regla_9(self):
         self.declare(CorteDeCarne(presencia_de_hueso=False))
+        self.presencia_hueso=False
 
     @Rule(AND(Platillo(tipo_de_coccion=FRITA)), Presupuesto(monto=MONTO_ALTO))
     def regla_10(self):
         self.declare(CorteDeCarne(presencia_de_hueso=False))
+        self.presencia_hueso=False
 
     @Rule(AND(Platillo(tipo_de_coccion=FRITA)), Presupuesto(monto=MONTO_BAJO))
     def regla_11(self):
         self.declare(CorteDeCarne(presencia_de_hueso=False))
+        self.presencia_hueso=False
 
     @Rule(AND(Platillo(tipo_de_coccion=HERVIDA)), Presupuesto(monto=MONTO_ALTO))
     def regla_12(self):
         self.declare(CorteDeCarne(presencia_de_hueso=True))
+        self.presencia_hueso=True
 
     @Rule(AND(Platillo(tipo_de_coccion=HERVIDA)), Presupuesto(monto=MONTO_BAJO))
     def regla_13(self):
         self.declare(CorteDeCarne(presencia_de_hueso=False))
+        self.presencia_hueso=False
 
     @Rule(AND(Platillo(tipo_de_coccion=AL_HORNO)), Presupuesto(monto=MONTO_ALTO))
     def regla_14(self):
         self.declare(CorteDeCarne(presencia_de_hueso=False))
+        self.presencia_hueso=False
 
     @Rule(AND(Platillo(tipo_de_coccion=AL_HORNO)), Presupuesto(monto=MONTO_BAJO))
     def regla_15(self):
         self.declare(CorteDeCarne(presencia_de_hueso=False))
+        self.presencia_hueso=False
 
     @Rule(AND(Platillo(tipo_de_coccion=PLANCHA)), Presupuesto(monto=MONTO_ALTO))
     def regla_16(self):
         self.declare(CorteDeCarne(presencia_de_hueso=False))
+        self.presencia_hueso=False
 
     @Rule(AND(Platillo(tipo_de_coccion=PLANCHA)), Presupuesto(monto=MONTO_BAJO))
     def regla_17(self):
         self.declare(CorteDeCarne(presencia_de_hueso=False))
+        self.presencia_hueso=False
 
     ####################################################
 
